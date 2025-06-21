@@ -1,47 +1,36 @@
-/**
- * @license Copyright (c) 2003-2024, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
- */
+import { ClassicEditor as ClassicEditorBase } from '@ckeditor/ckeditor5-editor-classic';
 
-// The editor creator to use.
-import {ClassicEditor as ClassicEditorBase} from '@ckeditor/ckeditor5-editor-classic';
+import { Essentials } from '@ckeditor/ckeditor5-essentials';
+import { CKFinderUploadAdapter } from '@ckeditor/ckeditor5-adapter-ckfinder'; // 업로드 어댑터(무료, 직접 구현시)
+import { Autoformat } from '@ckeditor/ckeditor5-autoformat';
+import { Bold, Italic } from '@ckeditor/ckeditor5-basic-styles';
+import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
+import { Heading } from '@ckeditor/ckeditor5-heading';
+import { Image, ImageCaption, ImageStyle, ImageToolbar, ImageUpload, PictureEditing } from '@ckeditor/ckeditor5-image';
+import { Indent } from '@ckeditor/ckeditor5-indent';
+import { Link } from '@ckeditor/ckeditor5-link';
+import { List } from '@ckeditor/ckeditor5-list';
+import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
+import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
+import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office';
+import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
+import { TextTransformation } from '@ckeditor/ckeditor5-typing';
 
-import {Essentials} from '@ckeditor/ckeditor5-essentials';
-import {CKFinderUploadAdapter} from '@ckeditor/ckeditor5-adapter-ckfinder';
-import {Autoformat} from '@ckeditor/ckeditor5-autoformat';
-import {Bold, Italic} from '@ckeditor/ckeditor5-basic-styles';
-import {BlockQuote} from '@ckeditor/ckeditor5-block-quote';
-import {CKBox} from '@ckeditor/ckeditor5-ckbox';
-import {CKFinder} from '@ckeditor/ckeditor5-ckfinder';
-import {EasyImage} from '@ckeditor/ckeditor5-easy-image';
-import {Heading} from '@ckeditor/ckeditor5-heading';
-import {Image, ImageCaption, ImageStyle, ImageToolbar, ImageUpload, PictureEditing} from '@ckeditor/ckeditor5-image';
-import {Indent} from '@ckeditor/ckeditor5-indent';
-import {Link} from '@ckeditor/ckeditor5-link';
-import {List} from '@ckeditor/ckeditor5-list';
-import {MediaEmbed} from '@ckeditor/ckeditor5-media-embed';
-import {Paragraph} from '@ckeditor/ckeditor5-paragraph';
-import {PasteFromOffice} from '@ckeditor/ckeditor5-paste-from-office';
-import {Table, TableToolbar} from '@ckeditor/ckeditor5-table';
-import {TextTransformation} from '@ckeditor/ckeditor5-typing';
-import {CloudServices} from '@ckeditor/ckeditor5-cloud-services';
-
-// Added plugins
-import {Font} from '@ckeditor/ckeditor5-font';
-import {Underline, Strikethrough, Code, Subscript, Superscript} from '@ckeditor/ckeditor5-basic-styles';
-import {Alignment} from '@ckeditor/ckeditor5-alignment';
-import {CodeBlock} from '@ckeditor/ckeditor5-code-block';
-import {HorizontalLine} from '@ckeditor/ckeditor5-horizontal-line';
-import {SimpleUploadAdapter} from '@ckeditor/ckeditor5-upload';
-import {LinkImage} from '@ckeditor/ckeditor5-link';
-import {ImageResize} from '@ckeditor/ckeditor5-image';
-import {FindAndReplace} from '@ckeditor/ckeditor5-find-and-replace';
+// 추가 플러그인
+import { Font } from '@ckeditor/ckeditor5-font';
+import { Underline, Strikethrough, Code, Subscript, Superscript } from '@ckeditor/ckeditor5-basic-styles';
+import { Alignment } from '@ckeditor/ckeditor5-alignment';
+import { CodeBlock } from '@ckeditor/ckeditor5-code-block';
+import { HorizontalLine } from '@ckeditor/ckeditor5-horizontal-line';
+import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
+import { LinkImage } from '@ckeditor/ckeditor5-link';
+import { ImageResize } from '@ckeditor/ckeditor5-image';
+import { FindAndReplace } from '@ckeditor/ckeditor5-find-and-replace';
 
 export default class ClassicEditor extends ClassicEditorBase {
-
     public static override builtinPlugins = [
         Essentials,
-        CKFinderUploadAdapter,
+        CKFinderUploadAdapter,  // (서버쪽이 무료라면 가능, CKFinder 서버가 유료라면 SimpleUploadAdapter만 남기는 게 더 완전 무료)
         Autoformat,
         Font,
         Bold,
@@ -53,10 +42,6 @@ export default class ClassicEditor extends ClassicEditorBase {
         Superscript,
         Alignment,
         BlockQuote,
-        CKBox,
-        CKFinder,
-        CloudServices,
-        EasyImage,
         Heading,
         Image,
         ImageCaption,
@@ -77,7 +62,7 @@ export default class ClassicEditor extends ClassicEditorBase {
         TextTransformation,
         CodeBlock,
         HorizontalLine,
-        SimpleUploadAdapter,
+        SimpleUploadAdapter, // ★ 직접 서버 업로드시 이것만 있어도 충분
         FindAndReplace
     ];
 
@@ -123,14 +108,11 @@ export default class ClassicEditor extends ClassicEditorBase {
             shouldNotGroupWhenFull: true
         },
         image: {
-            // Configure the available styles.
             styles: {
                 options: [
                     'alignLeft', 'alignCenter', 'alignRight'
                 ]
             },
-
-            // Configure the available image resize options.
             resizeOptions: [
                 {
                     name: 'resizeImage:original',
@@ -153,7 +135,6 @@ export default class ClassicEditor extends ClassicEditorBase {
                     value: '25'
                 }
             ],
-
             toolbar: [
                 'resizeImage',
                 '|',
@@ -173,7 +154,6 @@ export default class ClassicEditor extends ClassicEditorBase {
                 'mergeTableCells'
             ]
         },
-        // This value must be kept in sync with the language defined in webpack.config.js.
         language: 'en'
     };
 }
