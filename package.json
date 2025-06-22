@@ -35,11 +35,7 @@
     "@ckeditor/ckeditor5-autoformat": "^45.2.0",
     "@ckeditor/ckeditor5-basic-styles": "^45.2.0",
     "@ckeditor/ckeditor5-block-quote": "^45.2.0",
-    "@ckeditor/ckeditor5-ckbox": "^45.2.0",
-    "@ckeditor/ckeditor5-ckfinder": "^45.2.0",
-    "@ckeditor/ckeditor5-cloud-services": "^45.2.0",
     "@ckeditor/ckeditor5-code-block": "^45.2.0",
-    "@ckeditor/ckeditor5-easy-image": "^45.2.0",
     "@ckeditor/ckeditor5-editor-classic": "^45.2.0",
     "@ckeditor/ckeditor5-essentials": "^45.2.0",
     "@ckeditor/ckeditor5-find-and-replace": "^45.2.0",
@@ -80,7 +76,7 @@
     "url": "https://github.com/nkdas91/ckeditor5-classic-plus.git"
   },
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack --mode production && node remove-license.js",
     "postbuild": "tsc -p ./tsconfig.types.json"
   }
 }

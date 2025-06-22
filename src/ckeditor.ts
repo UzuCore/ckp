@@ -154,6 +154,6 @@ export default class ClassicEditor extends ClassicEditorBase {
                 'mergeTableCells'
             ]
         },
-        language: 'en'
+        language: 'ko'
     };
 }
